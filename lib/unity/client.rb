@@ -1,3 +1,5 @@
+require 'json'
+require 'http'
 require 'unity/client/version'
 require 'unity/client/response'
 require 'unity/client/response_error'
@@ -13,7 +15,7 @@ module Unity
     end
 
     def get(operation_name, parameters = {}, options = {})
-      response = http_client.post(
+      response = http_client.get(
         '/', params: { 'Operation' => operation_name }, json: parameters
       )
       raise ResponseError.from(response) unless response.code == 200
@@ -33,7 +35,7 @@ module Unity
     private
 
     def http_client
-      @http_client ||= HTTP.persistant(@endpoint)
+      @http_client ||= HTTP.persistent(@endpoint)
     end
   end
 end
