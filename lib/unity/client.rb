@@ -1,6 +1,6 @@
 require 'unity/client/version'
-require 'unity/response'
-require 'unity/response_error'
+require 'unity/client/response'
+require 'unity/client/response_error'
 
 module Unity
   class Client
