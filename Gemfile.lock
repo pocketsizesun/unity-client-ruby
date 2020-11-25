@@ -1,0 +1,50 @@
+GIT
+  remote: git@github.com:pocketsizesun/unity-urn-ruby.git
+  revision: 3709f200731117c098b2a15df90d5dbe5e781730
+  specs:
+    unity-urn (1.0.0)
+
+PATH
+  remote: .
+  specs:
+    unity-client (0.1.0)
+      http
+      unity-urn
+
+GEM
+  remote: https://rubygems.org/
+  specs:
+    addressable (2.7.0)
+      public_suffix (>= 2.0.2, < 5.0)
+    domain_name (0.5.20190701)
+      unf (>= 0.0.5, < 1.0.0)
+    ffi (1.13.1)
+    ffi-compiler (1.0.1)
+      ffi (>= 1.0.0)
+      rake
+    http (4.4.1)
+      addressable (~> 2.3)
+      http-cookie (~> 1.0)
+      http-form_data (~> 2.2)
+      http-parser (~> 1.2.0)
+    http-cookie (1.0.3)
+      domain_name (~> 0.5)
+    http-form_data (2.3.0)
+    http-parser (1.2.2)
+      ffi-compiler
+    public_suffix (4.0.6)
+    rake (12.3.3)
+    unf (0.1.4)
+      unf_ext
+    unf_ext (0.0.7.7)
+
+PLATFORMS
+  ruby
+
+DEPENDENCIES
+  rake (~> 12.0)
+  unity-client!
+  unity-urn!
+
+BUNDLED WITH
+   2.1.4
