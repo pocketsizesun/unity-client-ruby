@@ -19,6 +19,14 @@ module Unity
       def data
         @data ||= JSON.parse(@body)
       end
+
+      def error
+        data['error']
+      end
+
+      def error_data
+        data['data']
+      end
     end
   end
 end
