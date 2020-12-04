@@ -16,7 +16,7 @@ module Unity
       end
 
       def data
-        @data ||= JSON.parse(@body)
+        @data ||= JSON.parse(@body, symbolize_names: true)
       end
     end
   end

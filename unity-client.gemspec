@@ -28,5 +28,6 @@ Gem::Specification.new do |spec|
 
   spec.add_dependency 'http'
   spec.add_dependency 'unity-urn'
+  spec.add_dependency 'symbol-fstring'
   spec.add_development_dependency 'pry'
 end

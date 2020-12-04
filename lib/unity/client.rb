@@ -1,8 +1,12 @@
 require 'json'
 require 'http'
+require 'symbol-fstring'
 require 'unity/client/version'
 require 'unity/client/response'
 require 'unity/client/response_error'
+require 'unity/client/result'
+
+Symbol.alias_method(:to_s, :name)
 
 module Unity
   class Client
@@ -15,21 +19,21 @@ module Unity
     end
 
     def get(operation_name, parameters = {}, options = {})
-      response = http_client.get(
+      resp = http_client.get(
         '/', params: { 'Operation' => operation_name }, json: parameters
       )
-      raise ResponseError.from(response) unless response.code == 200
+      raise ResponseError.from(resp) unless resp.code == 200
 
-      Response.from(response)
+      Result.new(JSON.parse(resp.body.to_s))
     end
 
     def post(operation_name, parameters = {}, options = {})
-      response = http_client.post(
+      resp = http_client.post(
         '/', params: { 'Operation' => operation_name }, json: parameters
       )
-      raise ResponseError.from(response) unless response.code == 200
+      raise ResponseError.from(resp) unless resp.code == 200
 
-      Response.from(response)
+      Result.new(JSON.parse(resp.body.to_s))
     end
 
     private
