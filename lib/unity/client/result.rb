@@ -3,8 +3,6 @@
 module Unity
   class Client
     class Result
-      attr_reader :code, :headers, :body
-
       def initialize(data)
         @data = data
       end
@@ -14,14 +12,14 @@ module Unity
       end
 
       def method_missing(method_name, *args, &block)
-        attr_name = method_name.to_s
+        attr_name = method_name.name
         return @data[attr_name] if @data.key?(attr_name)
 
         super
       end
 
       def respond_to_missing?(method_name, include_private = true)
-        @data.key?(method_name) || super
+        @data.key?(method_name.name) || super
       end
     end
   end

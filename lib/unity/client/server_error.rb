@@ -2,7 +2,7 @@
 
 module Unity
   class Client
-    class ResponseError < Error
+    class ServerError < Error
       attr_reader :code, :headers, :body
 
       def self.from(response)
@@ -13,19 +13,7 @@ module Unity
         @code = code
         @headers = headers
         @body = body
-        super("response error with code: #{code}")
-      end
-
-      def data
-        @data ||= JSON.parse(@body)
-      end
-
-      def error
-        data['error']
-      end
-
-      def error_data
-        data['data']
+        super("server error with code: #{code}")
       end
     end
   end
