@@ -16,12 +16,15 @@ module Unity
       @endpoint = endpoint
       @access_key_id = options.fetch(:access_key_id) { ENV['UNITY_ACCESS_KEY_ID'] }
       @secret_access_key = options.fetch(:secret_access_key) { ENV['UNITY_SECRET_ACCESS_KEY'] }
+      @http_connection_timeout = options.fetch(:http_connection_timeout, 5)
+      @http_write_timeout = options.fetch(:http_write_timeout, 5)
+      @http_read_timeout = options.fetch(:http_read_timeout, 10)
     end
 
     def get(operation_name, parameters = {}, options = {})
       resp = http_client.get(
         '/', params: { 'Operation' => operation_name }, json: parameters
-      )
+      ).flush
       raise_error(resp) unless resp.code == 200
 
       Result.new(JSON.parse(resp.body.to_s))
@@ -30,7 +33,7 @@ module Unity
     def post(operation_name, parameters = {}, options = {})
       resp = http_client.post(
         '/', params: { 'Operation' => operation_name }, json: parameters
-      )
+      ).flush
       raise_error(resp) unless resp.code == 200
 
       Result.new(JSON.parse(resp.body.to_s))
@@ -39,7 +42,11 @@ module Unity
     private
 
     def http_client
-      @http_client ||= HTTP.persistent(@endpoint)
+      @http_client ||= HTTP.persistent(@endpoint).timeout(
+        connect: @http_connection_timeout,
+        write: @http_write_timeout,
+        read: @http_read_timeout
+      )
     end
 
     def raise_error(resp)
