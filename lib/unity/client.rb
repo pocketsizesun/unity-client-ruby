@@ -50,9 +50,10 @@ module Unity
     end
 
     def raise_error(resp)
-      raise ResponseError.from(resp) if resp.code == 400
+      # raise a specific Exception when an internal server error occurs
+      raise ServerError.from(resp) if resp.code >= 500
 
-      raise ServerError.from(resp)
+      raise ResponseError.from(resp)
     end
   end
 end
