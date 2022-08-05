@@ -1,6 +1,5 @@
 require 'json'
 require 'http'
-require 'symbol-fstring'
 require 'unity/client/version'
 require 'unity/client/error'
 require 'unity/client/response_error'

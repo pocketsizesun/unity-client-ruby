@@ -3,7 +3,6 @@ PATH
   specs:
     unity-client (1.1.1)
       http
-      symbol-fstring
 
 GEM
   remote: https://rubygems.org/
@@ -33,7 +32,6 @@ GEM
       method_source (~> 1.0)
     public_suffix (4.0.6)
     rake (12.3.3)
-    symbol-fstring (1.0.0)
     unf (0.1.4)
       unf_ext
     unf_ext (0.0.7.7)
