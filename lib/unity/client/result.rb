@@ -3,6 +3,18 @@
 module Unity
   class Client
     class Result
+      def self.from_response(resp)
+        body = resp.body.to_s
+
+        new(
+          if body.length > 0
+            JSON.parse(body)
+          else
+            {}
+          end
+        )
+      end
+
       def initialize(data)
         @data = data
       end

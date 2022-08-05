@@ -26,7 +26,7 @@ module Unity
       ).flush
       raise_error(resp) if resp.code >= 400
 
-      Result.new(JSON.parse(resp.body.to_s))
+      Result.from_response(resp)
     end
 
     def post(operation_name, parameters = {}, options = {})
@@ -35,7 +35,7 @@ module Unity
       ).flush
       raise_error(resp) if resp.code >= 400
 
-      Result.new(JSON.parse(resp.body.to_s))
+      Result.from_response(resp)
     end
 
     private
