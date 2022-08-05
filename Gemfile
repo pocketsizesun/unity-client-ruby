@@ -3,5 +3,4 @@ source "https://rubygems.org"
 # Specify your gem's dependencies in unity-client.gemspec
 gemspec
 
-gem 'unity-urn', git: 'git@github.com:pocketsizesun/unity-urn-ruby.git'
 gem "rake", "~> 12.0"
