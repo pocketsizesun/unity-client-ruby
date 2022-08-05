@@ -24,7 +24,7 @@ module Unity
       resp = http_client.get(
         '/', params: { 'Operation' => operation_name }, json: parameters
       ).flush
-      raise_error(resp) unless resp.code == 200
+      raise_error(resp) if resp.code >= 400
 
       Result.new(JSON.parse(resp.body.to_s))
     end
@@ -33,7 +33,7 @@ module Unity
       resp = http_client.post(
         '/', params: { 'Operation' => operation_name }, json: parameters
       ).flush
-      raise_error(resp) unless resp.code >= 400
+      raise_error(resp) if resp.code >= 400
 
       Result.new(JSON.parse(resp.body.to_s))
     end

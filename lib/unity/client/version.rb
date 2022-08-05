@@ -1,5 +1,5 @@
 module Unity
   class Client
-    VERSION = '1.1.1'
+    VERSION = '1.1.7'
   end
 end
