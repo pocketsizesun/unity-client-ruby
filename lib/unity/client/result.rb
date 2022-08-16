@@ -24,14 +24,14 @@ module Unity
       end
 
       def method_missing(method_name, *args, &block)
-        attr_name = method_name.name
+        attr_name = method_name.to_s
         return @data[attr_name] if @data.key?(attr_name)
 
         super
       end
 
       def respond_to_missing?(method_name, include_private = true)
-        @data.key?(method_name.name) || super
+        @data.key?(method_name.to_s) || super
       end
 
       def as_json
