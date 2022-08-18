@@ -3,7 +3,6 @@ require 'http'
 require 'unity/client/version'
 require 'unity/client/error'
 require 'unity/client/response_error'
-require 'unity/client/server_error'
 require 'unity/client/response'
 require 'unity/client/result'
 
@@ -49,9 +48,6 @@ module Unity
     end
 
     def raise_error(resp)
-      # raise a specific Exception when an internal server error occurs
-      raise ServerError.from(resp) if resp.code >= 500
-
       raise ResponseError.from(resp)
     end
   end

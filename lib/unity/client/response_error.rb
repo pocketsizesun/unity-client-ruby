@@ -13,19 +13,27 @@ module Unity
         @code = code
         @headers = headers
         @body = body
+        @body_parsed = false
+        @data = nil
+
         super("response error with code: #{code}")
       end
 
       def data
-        @data ||= JSON.parse(@body)
+        return @data if @body_parsed == true
+
+        @body_parsed = true
+        @data = JSON.parse(@body)
+      rescue JSON::ParserError
+        nil
       end
 
       def error
-        data['error']
+        data&.fetch('error', nil)
       end
 
       def error_data
-        data['data']
+        data&.fetch('data', nil)
       end
     end
   end
