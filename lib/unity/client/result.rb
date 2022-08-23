@@ -3,6 +3,8 @@
 module Unity
   class Client
     class Result
+      attr_reader :code
+
       def self.from_response(resp)
         body = resp.body.to_s
 
@@ -11,12 +13,14 @@ module Unity
             JSON.parse(body)
           else
             {}
-          end
+          end,
+          resp.code
         )
       end
 
-      def initialize(data)
+      def initialize(data, code = 200)
         @data = data
+        @code = code
       end
 
       def [](key)
