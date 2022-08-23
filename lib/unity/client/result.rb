@@ -3,7 +3,7 @@
 module Unity
   class Client
     class Result
-      attr_reader :code
+      attr_reader :code, :data
 
       def self.from_response(resp)
         body = resp.body.to_s
