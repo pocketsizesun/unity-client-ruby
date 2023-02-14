@@ -21,14 +21,14 @@ module Unity
       resp = http_client.get(path, params: parameters).flush
       raise_error(resp) if resp.code >= 400
 
-      Result.from_response(resp)
+      Unity::Client::Result.from_response(resp)
     end
 
     def post(path, parameters = {})
       resp = http_client.post(path, json: parameters).flush
       raise_error(resp) if resp.code >= 400
 
-      Result.from_response(resp)
+      Unity::Client::Result.from_response(resp)
     end
 
     private
@@ -42,7 +42,7 @@ module Unity
     end
 
     def raise_error(resp)
-      raise ResponseError.from(resp)
+      raise Unity::Client::ResponseError.from(resp)
     end
   end
 end
