@@ -12,13 +12,22 @@ module Unity
 
     def initialize(endpoint, options = {})
       @endpoint = endpoint
-      @http_connection_timeout = options.fetch(:http_connection_timeout, 2)
-      @http_write_timeout = options.fetch(:http_write_timeout, 3)
-      @http_read_timeout = options.fetch(:http_read_timeout, 10)
       @http_client = HTTP.persistent(@endpoint).timeout(
-        connect: @http_connection_timeout,
-        write: @http_write_timeout,
-        read: @http_read_timeout
+        connect: options[:http_connection_timeout] || 5,
+        write: options[:http_write_timeout] || 5,
+        read: options[:http_read_timeout] || 10
+      )
+
+      http_options = { keep_alive_timeout: options[:keep_alive_timeout] || 15 }
+
+      if options[:ssl_verify] == false
+        ssl_context = OpenSSL::SSL::SSLContext.new
+        ssl_context.verify_mode = OpenSSL::SSL::VERIFY_NONE
+        http_options[:ssl_context] = ssl_context
+      end
+
+      @http_client.default_options = @http_client.default_options.merge(
+        http_options
       )
     end
 
