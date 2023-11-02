@@ -32,11 +32,19 @@ module Unity
     end
 
     def get(path, parameters = {})
+      resp = @http_client.get(path, json: parameters).flush
+      raise_error(resp) if resp.code >= 400
+
+      Unity::Client::Result.from_response(resp)
+    end
+
+    def get_with_query_parameters(path, parameters = {})
       resp = @http_client.get(path, params: parameters).flush
       raise_error(resp) if resp.code >= 400
 
       Unity::Client::Result.from_response(resp)
     end
+
 
     def post(path, parameters = {})
       resp = @http_client.post(path, json: parameters).flush
